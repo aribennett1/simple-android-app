@@ -1,8 +1,10 @@
 package com.aribennett.portalnav
 
 import android.app.Activity
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,6 +17,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.exifinterface.media.ExifInterface
 import java.io.File
 
 class SlideshowActivity : Activity() {
@@ -131,7 +134,7 @@ class SlideshowActivity : Activity() {
         var attempts = 0
         while (attempts < photos.size) {
             val file = photos[index % photos.size]
-            val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+            val bitmap = decodeOrientedBitmap(file)
             index = (index + 1) % photos.size
             if (bitmap != null) {
                 image.setImageBitmap(bitmap)
@@ -142,6 +145,43 @@ class SlideshowActivity : Activity() {
         }
         image.setImageDrawable(null)
         emptyText.visibility = View.VISIBLE
+    }
+
+    private fun decodeOrientedBitmap(file: File): Bitmap? {
+        val bitmap = BitmapFactory.decodeFile(file.absolutePath) ?: return null
+        val orientation = runCatching {
+            ExifInterface(file.absolutePath).getAttributeInt(
+                ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_NORMAL
+            )
+        }.getOrDefault(ExifInterface.ORIENTATION_NORMAL)
+
+        val matrix = Matrix()
+        when (orientation) {
+            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> matrix.setScale(-1f, 1f)
+            ExifInterface.ORIENTATION_ROTATE_180 -> matrix.setRotate(180f)
+            ExifInterface.ORIENTATION_FLIP_VERTICAL -> matrix.setScale(1f, -1f)
+            ExifInterface.ORIENTATION_TRANSPOSE -> {
+                matrix.setRotate(90f)
+                matrix.postScale(-1f, 1f)
+            }
+            ExifInterface.ORIENTATION_ROTATE_90 -> matrix.setRotate(90f)
+            ExifInterface.ORIENTATION_TRANSVERSE -> {
+                matrix.setRotate(-90f)
+                matrix.postScale(-1f, 1f)
+            }
+            ExifInterface.ORIENTATION_ROTATE_270 -> matrix.setRotate(-90f)
+            else -> return bitmap
+        }
+
+        return runCatching {
+            Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true).also {
+                if (it !== bitmap) bitmap.recycle()
+            }
+        }.getOrElse {
+            Log.w(TAG, "Could not apply EXIF orientation for ${file.name}", it)
+            bitmap
+        }
     }
 
     private fun scheduleNext() {

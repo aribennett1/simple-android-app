@@ -1,0 +1,7 @@
+com.aribennett.portalnav
+color button_back
+color button_power
+drawable ic_launcher
+mipmap ic_launcher
+string app_name
+style AppTheme
