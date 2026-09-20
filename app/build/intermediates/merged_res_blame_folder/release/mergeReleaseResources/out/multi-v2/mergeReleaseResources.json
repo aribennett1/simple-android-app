@@ -1,0 +1,62 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.aribennett.portalnav.app-release-4:/values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "/Users/ericbennett/simple-android-app/app/src/main/res/values/colors.xml",
+                    "from": {
+                        "startLines": "1,2",
+                        "startColumns": "4,4",
+                        "startOffsets": "16,62",
+                        "endColumns": "45,46",
+                        "endOffsets": "57,104"
+                    },
+                    "to": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,101",
+                        "endColumns": "45,46",
+                        "endOffsets": "96,143"
+                    }
+                },
+                {
+                    "source": "/Users/ericbennett/simple-android-app/app/src/main/res/values/styles.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "16",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "278"
+                    },
+                    "to": {
+                        "startLines": "7",
+                        "startColumns": "4",
+                        "startOffsets": "384",
+                        "endLines": "11",
+                        "endColumns": "12",
+                        "endOffsets": "646"
+                    }
+                },
+                {
+                    "source": "/Users/ericbennett/simple-android-app/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "3,2,1",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "140,64,16",
+                        "endColumns": "111,75,47",
+                        "endOffsets": "247,135,59"
+                    },
+                    "to": {
+                        "startLines": "4,5,6",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "148,260,336",
+                        "endColumns": "111,75,47",
+                        "endOffsets": "255,331,379"
+                    }
+                }
+            ]
+        }
+    ]
+}

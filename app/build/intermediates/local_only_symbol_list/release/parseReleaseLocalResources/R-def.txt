@@ -1,0 +1,9 @@
+R_DEF: Internal format may change without notice
+local
+color button_back
+color button_power
+string accessibility_service_description
+string accessibility_service_label
+string app_name
+style AppTheme
+xml accessibility_service

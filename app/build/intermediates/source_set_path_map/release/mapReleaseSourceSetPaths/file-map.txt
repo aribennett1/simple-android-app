@@ -1,0 +1,7 @@
+com.aribennett.portalnav.app-pngs-0 /Users/ericbennett/simple-android-app/app/build/generated/res/pngs/release
+com.aribennett.portalnav.app-resValues-1 /Users/ericbennett/simple-android-app/app/build/generated/res/resValues/release
+com.aribennett.portalnav.app-packageReleaseResources-2 /Users/ericbennett/simple-android-app/app/build/intermediates/incremental/release/packageReleaseResources/merged.dir
+com.aribennett.portalnav.app-packageReleaseResources-3 /Users/ericbennett/simple-android-app/app/build/intermediates/incremental/release/packageReleaseResources/stripped.dir
+com.aribennett.portalnav.app-release-4 /Users/ericbennett/simple-android-app/app/build/intermediates/merged_res/release/mergeReleaseResources
+com.aribennett.portalnav.app-main-5 /Users/ericbennett/simple-android-app/app/src/main/res
+com.aribennett.portalnav.app-release-6 /Users/ericbennett/simple-android-app/app/src/release/res

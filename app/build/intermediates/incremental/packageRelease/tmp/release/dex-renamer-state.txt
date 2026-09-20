@@ -1,0 +1,4 @@
+#Sun Sep 20 01:01:57 EDT 2026
+base.0=/Users/ericbennett/simple-android-app/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

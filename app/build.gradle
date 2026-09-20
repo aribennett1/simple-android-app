@@ -1,0 +1,44 @@
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+}
+
+android {
+    namespace = "com.aribennett.portalnav"
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "com.aribennett.portalnav"
+        minSdk = 28
+        targetSdk = 29
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    signingConfigs {
+        release {
+            initWith(getByName("debug"))
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    lint {
+        checkReleaseBuilds = false
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+    }
+}

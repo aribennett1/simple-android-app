@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="button_back">#1565C0</color>
+    <color name="button_power">#2E7D32</color>
+    <string name="accessibility_service_description">Provides Back and Screen Off controls for Portal.</string>
+    <string name="accessibility_service_label">Portal Nav Controls</string>
+    <string name="app_name">Portal Nav</string>
+    <style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:colorAccent">#1565C0</item>
+    </style>
+</resources>

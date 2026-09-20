@@ -1,0 +1,7 @@
+com.aribennett.portalnav:color/button_back = 0x7f010000
+com.aribennett.portalnav:string/accessibility_service_description = 0x7f020000
+com.aribennett.portalnav:color/button_power = 0x7f010001
+com.aribennett.portalnav:xml/accessibility_service = 0x7f040000
+com.aribennett.portalnav:style/AppTheme = 0x7f030000
+com.aribennett.portalnav:string/app_name = 0x7f020002
+com.aribennett.portalnav:string/accessibility_service_label = 0x7f020001

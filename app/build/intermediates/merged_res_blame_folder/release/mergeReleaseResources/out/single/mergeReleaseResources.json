@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/ericbennett/.gradle/daemon/8.7/com.aribennett.portalnav.app-release-4:/xml_accessibility_service.xml.flat",
+        "source": "/Users/ericbennett/.gradle/daemon/8.7/com.aribennett.portalnav.app-main-5:/xml/accessibility_service.xml"
+    },
+    {
+        "merged": "com.aribennett.portalnav.app-release-4:/xml_accessibility_service.xml.flat",
+        "source": "com.aribennett.portalnav.app-main-5:/xml/accessibility_service.xml"
+    }
+]
