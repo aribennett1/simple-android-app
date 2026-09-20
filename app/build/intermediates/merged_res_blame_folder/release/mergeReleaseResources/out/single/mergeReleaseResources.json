@@ -1,10 +1,14 @@
 [
     {
+        "merged": "com.aribennett.portalnav.app-release-4:/drawable_ic_launcher.xml.flat",
+        "source": "com.aribennett.portalnav.app-main-5:/drawable/ic_launcher.xml"
+    },
+    {
         "merged": "/Users/ericbennett/.gradle/daemon/8.7/com.aribennett.portalnav.app-release-4:/xml_accessibility_service.xml.flat",
         "source": "/Users/ericbennett/.gradle/daemon/8.7/com.aribennett.portalnav.app-main-5:/xml/accessibility_service.xml"
     },
     {
-        "merged": "com.aribennett.portalnav.app-release-4:/xml_accessibility_service.xml.flat",
-        "source": "com.aribennett.portalnav.app-main-5:/xml/accessibility_service.xml"
+        "merged": "com.aribennett.portalnav.app-release-4:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.aribennett.portalnav.app-main-5:/mipmap-anydpi-v26/ic_launcher.xml"
     }
 ]

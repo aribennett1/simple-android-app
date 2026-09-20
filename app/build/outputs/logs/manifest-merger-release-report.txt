@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:2:1-58:12
-INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:2:1-58:12
-INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:2:1-58:12
-INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:2:1-58:12
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:2:1-62:12
+INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:2:1-62:12
+INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:2:1-62:12
+INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:2:1-62:12
 	package
 		INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml
 	android:versionName
@@ -29,92 +29,100 @@ ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xm
 	android:name
 		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:7:22-64
 application
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:9:5-57:19
-INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:9:5-57:19
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:9:5-61:19
+INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:9:5-61:19
 	android:extractNativeLibs
 		INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml
 	android:label
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:11:9-41
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:13:9-41
+	android:roundIcon
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:12:9-50
+	android:icon
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:11:9-45
 	android:allowBackup
 		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:10:9-36
 	android:theme
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:12:9-40
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:14:9-40
 	android:usesCleartextTraffic
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:13:9-45
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:15:9-45
 activity#com.aribennett.portalnav.MainActivity
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:15:9-22:20
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:17:9-26:20
+	android:label
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:21:13-45
 	android:exported
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:17:13-36
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:19:13-36
+	android:icon
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:20:13-49
 	android:name
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:16:13-41
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:18:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:18:13-21:29
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:22:13-25:29
 action#android.intent.action.MAIN
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:19:17-69
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:23:17-69
 	android:name
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:19:25-66
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:23:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:20:17-77
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:24:17-77
 	android:name
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:20:27-74
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:24:27-74
 activity#com.aribennett.portalnav.SlideshowActivity
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:24:9-30:59
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:28:9-34:54
 	android:screenOrientation
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:30:13-56
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:34:13-51
 	android:excludeFromRecents
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:27:13-46
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:31:13-46
 	android:launchMode
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:29:13-44
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:33:13-44
 	android:exported
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:28:13-37
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:32:13-37
 	android:configChanges
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:26:13-74
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:30:13-74
 	android:name
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:25:13-46
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:29:13-46
 service#com.aribennett.portalnav.PortalAccessibilityService
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:32:9-42:19
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:36:9-46:19
 	android:exported
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:34:13-36
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:38:13-36
 	android:permission
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:35:13-79
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:39:13-79
 	android:name
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:33:13-55
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:37:13-55
 intent-filter#action:name:android.accessibilityservice.AccessibilityService
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:36:13-38:29
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:40:13-42:29
 action#android.accessibilityservice.AccessibilityService
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:37:17-92
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:41:17-92
 	android:name
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:37:25-89
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:41:25-89
 meta-data#android.accessibilityservice
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:39:13-41:65
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:43:13-45:65
 	android:resource
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:41:17-62
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:45:17-62
 	android:name
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:40:17-60
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:44:17-60
 service#com.aribennett.portalnav.OverlayService
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:44:9-46:40
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:48:9-50:40
 	android:exported
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:46:13-37
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:50:13-37
 	android:name
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:45:13-43
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:49:13-43
 receiver#com.aribennett.portalnav.BootReceiver
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:48:9-56:20
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:52:9-60:20
 	android:enabled
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:50:13-35
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:54:13-35
 	android:exported
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:51:13-37
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:55:13-37
 	android:name
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:49:13-41
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:53:13-41
 intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.LOCKED_BOOT_COMPLETED
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:52:13-55:29
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:56:13-59:29
 action#android.intent.action.BOOT_COMPLETED
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:53:17-79
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:57:17-79
 	android:name
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:53:25-76
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:57:25-76
 action#android.intent.action.LOCKED_BOOT_COMPLETED
-ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:54:17-86
+ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:58:17-86
 	android:name
-		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:54:25-83
+		ADDED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:58:25-83
 uses-sdk
 INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml

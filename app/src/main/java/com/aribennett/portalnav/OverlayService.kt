@@ -97,7 +97,7 @@ class OverlayService : Service() {
         val saved = Prefs.position(this)
         val display = resources.displayMetrics
         val defaultX = saved.first ?: dp(16)
-        val defaultY = saved.second ?: (display.heightPixels - sizePx - dp(140))
+        val defaultY = saved.second ?: (display.heightPixels - sizePx - dp(140)).coerceAtLeast(dp(16))
 
         val layoutParams = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
