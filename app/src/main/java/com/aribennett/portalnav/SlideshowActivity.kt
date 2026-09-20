@@ -163,7 +163,7 @@ class SlideshowActivity : Activity() {
     }
 
     private fun updateCount() {
-        countText.text = "Saved: ${photos.size}"
+        countText.text = "Saved: ${PhotoStore.photoCount(this)}"
     }
 
     private fun showControlsTemporarily() {
@@ -182,6 +182,10 @@ class SlideshowActivity : Activity() {
 
         fun rescanIfVisible() {
             current?.runOnUiThread { current?.rescan() }
+        }
+
+        fun updateCountIfVisible() {
+            current?.runOnUiThread { current?.updateCount() }
         }
     }
 }

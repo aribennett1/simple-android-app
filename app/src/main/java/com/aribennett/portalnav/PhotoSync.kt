@@ -65,6 +65,7 @@ object PhotoSync {
             if (target.exists() && target.length() > 0) continue
             download(item.url, target)
             downloaded++
+            SlideshowActivity.updateCountIfVisible()
         }
 
         val removed = PhotoStore.removeStale(context, keep)
@@ -73,6 +74,9 @@ object PhotoSync {
 
     private fun fetchManifest(): List<RemotePhoto> {
         val text = getText(AppConfig.GAS_ENDPOINT)
+        if (!text.trimStart().startsWith("[")) {
+            error("Manifest endpoint did not return JSON")
+        }
         val array = JSONArray(text)
         val photos = ArrayList<RemotePhoto>()
         for (i in 0 until array.length()) {

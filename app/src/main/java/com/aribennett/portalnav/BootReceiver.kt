@@ -9,6 +9,5 @@ class BootReceiver : BroadcastReceiver() {
         if (!Prefs.isAutostartEnabled(context)) return
 
         context.startActivity(Intent(context, SlideshowActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-        PhotoSync.request(context, "boot")
     }
 }
