@@ -166,6 +166,11 @@ class SlideshowActivity : Activity() {
         countText.text = "Saved: ${PhotoStore.photoCount(this)}"
     }
 
+    private fun updateSyncProgress(done: Int, total: Int) {
+        countText.text = "Sync: $done / $total"
+        showControlsTemporarily()
+    }
+
     private fun showControlsTemporarily() {
         controls.visibility = View.VISIBLE
         controlsHandler.removeCallbacksAndMessages(null)
@@ -186,6 +191,10 @@ class SlideshowActivity : Activity() {
 
         fun updateCountIfVisible() {
             current?.runOnUiThread { current?.updateCount() }
+        }
+
+        fun updateSyncProgressIfVisible(done: Int, total: Int) {
+            current?.runOnUiThread { current?.updateSyncProgress(done, total) }
         }
     }
 }

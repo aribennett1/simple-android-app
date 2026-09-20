@@ -56,20 +56,20 @@ object PhotoSync {
 
     private fun syncNow(context: Context): String {
         val manifest = fetchManifest()
-        val keep = mutableSetOf<String>()
         var downloaded = 0
+        val tempDir = PhotoStore.tempPhotoDir(context)
+        val cleared = PhotoStore.clearTemp(context)
+        Log.i(TAG, "Sync staging into ${tempDir.absolutePath}; clearedTemp=$cleared")
 
         for (item in manifest) {
-            val target = PhotoStore.fileFor(context, item)
-            keep += target.name
-            if (target.exists() && target.length() > 0) continue
+            val target = PhotoStore.fileFor(tempDir, item)
             download(item.url, target)
             downloaded++
-            SlideshowActivity.updateCountIfVisible()
+            SlideshowActivity.updateSyncProgressIfVisible(downloaded, manifest.size)
         }
 
-        val removed = PhotoStore.removeStale(context, keep)
-        return "items=${manifest.size}, downloaded=$downloaded, removed=$removed"
+        val copied = PhotoStore.swapTempIntoPhotoDir(context)
+        return "items=${manifest.size}, downloaded=$downloaded, swapped=$copied"
     }
 
     private fun fetchManifest(): List<RemotePhoto> {
