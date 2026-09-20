@@ -16,6 +16,7 @@ class PortalAccessibilityService : AccessibilityService() {
     private val handler = Handler(Looper.getMainLooper())
     private var state = CallState.IDLE
     private var lastIncomingAt = 0L
+    private var answerStartedAt = 0L
 
     override fun onServiceConnected() {
         instance = this
@@ -64,7 +65,8 @@ class PortalAccessibilityService : AccessibilityService() {
 
     private fun handleIncoming(incoming: IncomingCallUi) {
         val now = System.currentTimeMillis()
-        if (state == CallState.ANSWERING || state == CallState.ACTIVE || now - lastIncomingAt < 5_000L) return
+        if (state == CallState.ANSWERING && now - answerStartedAt < 8_000L) return
+        if (state == CallState.ACTIVE || now - lastIncomingAt < 5_000L) return
         lastIncomingAt = now
         state = CallState.INCOMING
         Log.i(TAG, "Incoming WhatsApp call detected: ${incoming.caller}")
@@ -75,12 +77,31 @@ class PortalAccessibilityService : AccessibilityService() {
         }
 
         state = CallState.ANSWERING
+        answerStartedAt = now
         val swiped = swipeUp(incoming.answerNode)
         Log.i(TAG, "Answer swipe result: $swiped")
         if (swiped) {
-            handler.postDelayed({ inspectWhatsApp() }, 2_500L)
+            handler.postDelayed({ verifyAnswerProgress() }, 4_000L)
         } else {
             state = CallState.IDLE
+        }
+    }
+
+    private fun verifyAnswerProgress() {
+        val root = rootInActiveWindow
+        when {
+            WhatsAppUiDetector.isActiveCall(root) -> {
+                state = CallState.ACTIVE
+                Log.i(TAG, "WhatsApp call active after answer gesture")
+            }
+            WhatsAppUiDetector.detectIncoming(root) != null -> {
+                state = CallState.IDLE
+                Log.w(TAG, "WhatsApp still incoming after answer gesture; reset for retry")
+            }
+            state == CallState.ANSWERING -> {
+                state = CallState.IDLE
+                Log.i(TAG, "Answer gesture completed without active-call signal; reset for next call")
+            }
         }
     }
 
