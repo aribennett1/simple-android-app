@@ -10,8 +10,11 @@ import java.io.BufferedInputStream
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.math.min
+import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 
 data class RemotePhoto(
     val id: String,
@@ -23,6 +26,7 @@ data class RemotePhoto(
 
 object PhotoSync {
     private const val TAG = "PortalNavPhotos"
+    private const val PARALLEL_DOWNLOADS = 4
     private val executor = Executors.newSingleThreadExecutor()
     private val running = AtomicBoolean(false)
     private val main = Handler(Looper.getMainLooper())
@@ -61,12 +65,28 @@ object PhotoSync {
         val cleared = PhotoStore.clearTemp(context)
         Log.i(TAG, "Sync staging into ${tempDir.absolutePath}; clearedTemp=$cleared")
 
+        val pool = Executors.newFixedThreadPool(PARALLEL_DOWNLOADS)
+        val completed = AtomicInteger(0)
+        val failures = ConcurrentLinkedQueue<Throwable>()
         for (item in manifest) {
-            val target = PhotoStore.fileFor(tempDir, item)
-            download(item.url, target)
-            downloaded++
-            SlideshowActivity.updateSyncProgressIfVisible(downloaded, manifest.size)
+            pool.submit {
+                try {
+                    val target = PhotoStore.fileFor(tempDir, item)
+                    download(item.url, target)
+                    val done = completed.incrementAndGet()
+                    SlideshowActivity.updateSyncProgressIfVisible(done, manifest.size)
+                } catch (t: Throwable) {
+                    failures += t
+                }
+            }
         }
+        pool.shutdown()
+        while (!pool.isTerminated) {
+            Thread.sleep(250L)
+        }
+
+        failures.peek()?.let { throw it }
+        downloaded = completed.get()
 
         val copied = PhotoStore.swapTempIntoPhotoDir(context)
         return "items=${manifest.size}, downloaded=$downloaded, swapped=$copied"
@@ -107,11 +127,14 @@ object PhotoSync {
 
     private fun download(url: String, target: File) {
         val tmp = File(target.parentFile, "${target.name}.tmp")
-        val connection = open(url)
-        BufferedInputStream(connection.inputStream).use { input ->
-            tmp.outputStream().use { output -> input.copyTo(output) }
+        val connection = openWithRetry(url)
+        try {
+            BufferedInputStream(connection.inputStream).use { input ->
+                tmp.outputStream().use { output -> input.copyTo(output) }
+            }
+        } finally {
+            connection.disconnect()
         }
-        connection.disconnect()
         if (tmp.length() <= 0) {
             tmp.delete()
             error("Downloaded empty file for ${target.name}")
@@ -119,6 +142,21 @@ object PhotoSync {
         if (target.exists()) target.delete()
         if (!tmp.renameTo(target)) error("Could not move temp file into cache")
         Log.i(TAG, "Downloaded ${target.name}")
+    }
+
+    private fun openWithRetry(url: String): HttpURLConnection {
+        var last: Throwable? = null
+        repeat(3) { attempt ->
+            try {
+                return open(url)
+            } catch (t: Throwable) {
+                last = t
+                val delay = min(4_000L, 750L * (attempt + 1))
+                Log.w(TAG, "Download open failed; retry ${attempt + 1}/3 in ${delay}ms: ${t.message}")
+                Thread.sleep(delay)
+            }
+        }
+        throw last ?: IllegalStateException("Could not open $url")
     }
 
     private fun open(url: String): HttpURLConnection {

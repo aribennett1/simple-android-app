@@ -1,6 +1,7 @@
 package com.aribennett.portalnav
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -8,7 +9,9 @@ import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -23,12 +26,16 @@ import java.io.File
 class SlideshowActivity : Activity() {
     private val handler = Handler(Looper.getMainLooper())
     private val controlsHandler = Handler(Looper.getMainLooper())
+    private val topBarHandler = Handler(Looper.getMainLooper())
     private lateinit var image: ImageView
     private lateinit var emptyText: TextView
     private lateinit var controls: LinearLayout
+    private lateinit var topBar: LinearLayout
     private lateinit var countText: TextView
     private var photos: List<File> = emptyList()
     private var index = 0
+    private var currentPhotoName: String? = null
+    private var touchStartY = 0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,9 +74,28 @@ class SlideshowActivity : Activity() {
             setPadding(dp(10), 0, 0, 0)
         }
         controls.addView(countText, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+        topBar = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = android.view.Gravity.CENTER_VERTICAL or android.view.Gravity.RIGHT
+            setPadding(dp(10), dp(8), dp(10), dp(8))
+            setBackgroundColor(0x99000000.toInt())
+            visibility = View.GONE
+        }
+        topBar.addView(Button(this).apply {
+            text = "⚙"
+            textSize = 22f
+            setOnClickListener {
+                openSettings()
+            }
+        }, LinearLayout.LayoutParams(dp(56), dp(48)))
         setContentView(FrameLayout(this).apply {
             addView(image, FrameLayout.LayoutParams(-1, -1))
             addView(emptyText, FrameLayout.LayoutParams(-1, -1))
+            addView(topBar, FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                android.view.Gravity.TOP
+            ))
             addView(controls, FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -104,9 +130,24 @@ class SlideshowActivity : Activity() {
         showControlsTemporarily()
     }
 
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> touchStartY = event.rawY
+            MotionEvent.ACTION_UP -> {
+                val edge = dp(48)
+                val distance = event.rawY - touchStartY
+                if (touchStartY <= edge && distance >= dp(56)) {
+                    showTopBarTemporarily()
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
+    }
+
     override fun onPause() {
         handler.removeCallbacksAndMessages(null)
         controlsHandler.removeCallbacksAndMessages(null)
+        topBarHandler.removeCallbacksAndMessages(null)
         if (current === this) current = null
         super.onPause()
     }
@@ -117,8 +158,12 @@ class SlideshowActivity : Activity() {
     }
 
     fun rescan() {
+        val previousPhotoName = currentPhotoName
         photos = PhotoStore.photos(this)
-        index = 0
+        index = previousPhotoName
+            ?.let { name -> photos.indexOfFirst { it.name == name } }
+            ?.takeIf { it >= 0 }
+            ?: 0
         Log.i(TAG, "Slideshow cache count: ${photos.size}")
         updateCount()
         showCurrent()
@@ -137,6 +182,7 @@ class SlideshowActivity : Activity() {
             val bitmap = decodeOrientedBitmap(file)
             index = (index + 1) % photos.size
             if (bitmap != null) {
+                currentPhotoName = file.name
                 image.setImageBitmap(bitmap)
                 return
             }
@@ -148,14 +194,50 @@ class SlideshowActivity : Activity() {
     }
 
     private fun decodeOrientedBitmap(file: File): Bitmap? {
-        val bitmap = BitmapFactory.decodeFile(file.absolutePath) ?: return null
-        val orientation = runCatching {
+        val orientation = exifOrientation(file)
+        val bitmap = decodeSampledBitmap(file, orientation) ?: return null
+        return orientBitmap(file, bitmap, orientation)
+    }
+
+    private fun decodeSampledBitmap(file: File, orientation: Int): Bitmap? {
+        val bounds = BitmapFactory.Options().apply {
+            inJustDecodeBounds = true
+        }
+        BitmapFactory.decodeFile(file.absolutePath, bounds)
+        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) return BitmapFactory.decodeFile(file.absolutePath)
+
+        val rotated = orientation == ExifInterface.ORIENTATION_ROTATE_90 ||
+            orientation == ExifInterface.ORIENTATION_ROTATE_270 ||
+            orientation == ExifInterface.ORIENTATION_TRANSPOSE ||
+            orientation == ExifInterface.ORIENTATION_TRANSVERSE
+        val sourceWidth = if (rotated) bounds.outHeight else bounds.outWidth
+        val sourceHeight = if (rotated) bounds.outWidth else bounds.outHeight
+        val targetWidth = image.width.takeIf { it > 0 } ?: resources.displayMetrics.widthPixels
+        val targetHeight = image.height.takeIf { it > 0 } ?: resources.displayMetrics.heightPixels
+
+        return BitmapFactory.decodeFile(file.absolutePath, BitmapFactory.Options().apply {
+            inSampleSize = calculateInSampleSize(sourceWidth, sourceHeight, targetWidth, targetHeight)
+        })
+    }
+
+    private fun calculateInSampleSize(sourceWidth: Int, sourceHeight: Int, targetWidth: Int, targetHeight: Int): Int {
+        var sample = 1
+        while (sourceWidth / (sample * 2) >= targetWidth && sourceHeight / (sample * 2) >= targetHeight) {
+            sample *= 2
+        }
+        return sample
+    }
+
+    private fun exifOrientation(file: File): Int {
+        return runCatching {
             ExifInterface(file.absolutePath).getAttributeInt(
                 ExifInterface.TAG_ORIENTATION,
                 ExifInterface.ORIENTATION_NORMAL
             )
         }.getOrDefault(ExifInterface.ORIENTATION_NORMAL)
+    }
 
+    private fun orientBitmap(file: File, bitmap: Bitmap, orientation: Int): Bitmap {
         val matrix = Matrix()
         when (orientation) {
             ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> matrix.setScale(-1f, 1f)
@@ -211,12 +293,28 @@ class SlideshowActivity : Activity() {
         showControlsTemporarily()
     }
 
+    private fun openSettings() {
+        runCatching {
+            startActivity(Intent(Settings.ACTION_SETTINGS))
+        }.onFailure {
+            Log.w(TAG, "Could not open settings", it)
+        }
+    }
+
     private fun showControlsTemporarily() {
         controls.visibility = View.VISIBLE
         controlsHandler.removeCallbacksAndMessages(null)
         controlsHandler.postDelayed({
             controls.visibility = View.GONE
         }, 3_000L)
+    }
+
+    private fun showTopBarTemporarily() {
+        topBar.visibility = View.VISIBLE
+        topBarHandler.removeCallbacksAndMessages(null)
+        topBarHandler.postDelayed({
+            topBar.visibility = View.GONE
+        }, 5_000L)
     }
 
     private fun dp(value: Int): Int = (value * resources.displayMetrics.density).toInt()
