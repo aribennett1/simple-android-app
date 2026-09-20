@@ -1,4 +1,4 @@
-const FOLDER_ID = '1UHgHJTWJ11rtyKDYzNtvi-RSqwu6p27J';
+const FOLDER_ID = '1v7woKfo1EMmUs64hRMnn7Jen3cje_vBe';
 
 function doGet() {
   const folder = DriveApp.getFolderById(FOLDER_ID);

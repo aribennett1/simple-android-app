@@ -15,7 +15,6 @@ object PhotoSyncScheduler {
         scheduled = true
         val appContext = context.applicationContext
         Log.i(TAG, "Periodic sync scheduler started")
-        PhotoSync.request(appContext, "scheduler-start")
         scheduleNext(appContext)
     }
 

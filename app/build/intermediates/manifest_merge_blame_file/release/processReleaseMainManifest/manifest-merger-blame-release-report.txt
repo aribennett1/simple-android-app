@@ -8,53 +8,53 @@
 8        android:minSdkVersion="28"
 9        android:targetSdkVersion="29" />
 10
-11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-11-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:4:5-78
-11-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:4:22-75
-12    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-12-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:5:5-81
-12-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:5:22-78
-13    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-13-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:6:5-77
-13-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:6:22-74
-14    <uses-permission android:name="android.permission.INTERNET" />
-14-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:7:5-67
-14-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:7:22-64
-15
-16    <application
-16-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:9:5-61:19
-17        android:allowBackup="false"
-17-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:10:9-36
-18        android:extractNativeLibs="false"
-19        android:icon="@drawable/ic_launcher"
-19-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:11:9-45
-20        android:label="@string/app_name"
-20-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:13:9-41
-21        android:roundIcon="@drawable/ic_launcher"
-21-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:12:9-50
-22        android:theme="@style/AppTheme"
-22-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:14:9-40
-23        android:usesCleartextTraffic="false" >
-23-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:15:9-45
-24        <activity
-24-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:17:9-26:20
-25            android:name="com.aribennett.portalnav.MainActivity"
-25-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:18:13-41
-26            android:exported="true"
-26-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:19:13-36
-27            android:icon="@drawable/ic_launcher"
-27-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:20:13-49
-28            android:label="@string/app_name" >
-28-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:21:13-45
-29            <intent-filter>
-29-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:22:13-25:29
-30                <action android:name="android.intent.action.MAIN" />
-30-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:23:17-69
-30-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:23:25-66
-31
-32                <category android:name="android.intent.category.LAUNCHER" />
-32-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:24:17-77
-32-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:24:27-74
+11    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+11-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:4:5-81
+11-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:4:22-78
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:5:5-67
+12-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:5:22-64
+13
+14    <application
+14-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:7:5-45:19
+15        android:allowBackup="false"
+15-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:8:9-36
+16        android:extractNativeLibs="false"
+17        android:icon="@drawable/ic_launcher"
+17-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:9:9-45
+18        android:label="@string/app_name"
+18-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:11:9-41
+19        android:roundIcon="@drawable/ic_launcher"
+19-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:10:9-50
+20        android:theme="@style/AppTheme"
+20-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:12:9-40
+21        android:usesCleartextTraffic="false" >
+21-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:13:9-45
+22        <activity
+22-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:15:9-26:20
+23            android:name="com.aribennett.portalnav.MainActivity"
+23-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:16:13-41
+24            android:exported="true"
+24-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:17:13-36
+25            android:icon="@drawable/ic_launcher"
+25-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:18:13-49
+26            android:label="@string/app_name" >
+26-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:19:13-45
+27            <intent-filter>
+27-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:20:13-25:29
+28                <action android:name="android.intent.action.MAIN" />
+28-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:21:17-69
+28-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:21:25-66
+29
+30                <category android:name="android.intent.category.LAUNCHER" />
+30-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:22:17-77
+30-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:22:27-74
+31                <category android:name="android.intent.category.HOME" />
+31-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:23:17-73
+31-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:23:27-70
+32                <category android:name="android.intent.category.DEFAULT" />
+32-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:24:17-76
+32-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:24:27-73
 33            </intent-filter>
 34        </activity>
 35        <activity
@@ -72,53 +72,24 @@
 41            android:screenOrientation="fullSensor" />
 41-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:34:13-51
 42
-43        <service
-43-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:36:9-46:19
-44            android:name="com.aribennett.portalnav.PortalAccessibilityService"
-44-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:37:13-55
-45            android:exported="true"
-45-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:38:13-36
-46            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
-46-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:39:13-79
+43        <receiver
+43-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:36:9-44:20
+44            android:name="com.aribennett.portalnav.BootReceiver"
+44-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:37:13-41
+45            android:enabled="true"
+45-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:38:13-35
+46            android:exported="false" >
+46-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:39:13-37
 47            <intent-filter>
-47-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:40:13-42:29
-48                <action android:name="android.accessibilityservice.AccessibilityService" />
-48-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:41:17-92
-48-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:41:25-89
-49            </intent-filter>
-50
-51            <meta-data
-51-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:43:13-45:65
-52                android:name="android.accessibilityservice"
-52-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:44:17-60
-53                android:resource="@xml/accessibility_service" />
-53-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:45:17-62
-54        </service>
-55        <service
-55-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:48:9-50:40
-56            android:name="com.aribennett.portalnav.OverlayService"
-56-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:49:13-43
-57            android:exported="false" />
-57-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:50:13-37
-58
-59        <receiver
-59-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:52:9-60:20
-60            android:name="com.aribennett.portalnav.BootReceiver"
-60-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:53:13-41
-61            android:enabled="true"
-61-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:54:13-35
-62            android:exported="false" >
-62-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:55:13-37
-63            <intent-filter>
-63-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:56:13-59:29
-64                <action android:name="android.intent.action.BOOT_COMPLETED" />
-64-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:57:17-79
-64-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:57:25-76
-65                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-65-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:58:17-86
-65-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:58:25-83
-66            </intent-filter>
-67        </receiver>
-68    </application>
-69
-70</manifest>
+47-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:40:13-43:29
+48                <action android:name="android.intent.action.BOOT_COMPLETED" />
+48-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:41:17-79
+48-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:41:25-76
+49                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+49-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:42:17-86
+49-->/Users/ericbennett/simple-android-app/app/src/main/AndroidManifest.xml:42:25-83
+50            </intent-filter>
+51        </receiver>
+52    </application>
+53
+54</manifest>

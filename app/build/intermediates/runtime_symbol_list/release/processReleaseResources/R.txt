@@ -2,8 +2,5 @@ int color button_back 0x7f010000
 int color button_power 0x7f010001
 int drawable ic_launcher 0x7f020000
 int mipmap ic_launcher 0x7f030000
-int string accessibility_service_description 0x7f040000
-int string accessibility_service_label 0x7f040001
-int string app_name 0x7f040002
+int string app_name 0x7f040000
 int style AppTheme 0x7f050000
-int xml accessibility_service 0x7f060000

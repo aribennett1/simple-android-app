@@ -39,7 +39,6 @@ class MainActivity : Activity() {
     }
 
     private fun startAppliance() {
-        startService(Intent(this, OverlayService::class.java))
         startActivity(Intent(this, SlideshowActivity::class.java))
     }
 
