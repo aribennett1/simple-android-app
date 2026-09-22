@@ -60,23 +60,31 @@ object PhotoSync {
 
     private fun syncNow(context: Context): String {
         val manifest = fetchManifest()
-        var downloaded = 0
         val tempDir = PhotoStore.tempPhotoDir(context)
         val cleared = PhotoStore.clearTemp(context)
         Log.i(TAG, "Sync staging into ${tempDir.absolutePath}; clearedTemp=$cleared")
 
         val pool = Executors.newFixedThreadPool(PARALLEL_DOWNLOADS)
         val completed = AtomicInteger(0)
+        val downloaded = AtomicInteger(0)
+        val reused = AtomicInteger(0)
         val failures = ConcurrentLinkedQueue<Throwable>()
         for (item in manifest) {
             pool.submit {
                 try {
                     val target = PhotoStore.fileFor(tempDir, item)
-                    download(item.url, target)
+                    val existing = PhotoStore.fileFor(context, item)
+                    if (existing.exists() && existing.length() > 0) {
+                        existing.copyTo(target, overwrite = true)
+                        reused.incrementAndGet()
+                    } else {
+                        download(item.url, target)
+                        downloaded.incrementAndGet()
+                    }
                     val done = completed.incrementAndGet()
                     SlideshowActivity.updateSyncProgressIfVisible(done, manifest.size)
                 } catch (t: Throwable) {
-                    failures += t
+                    failures.add(t)
                 }
             }
         }
@@ -86,10 +94,9 @@ object PhotoSync {
         }
 
         failures.peek()?.let { throw it }
-        downloaded = completed.get()
 
         val copied = PhotoStore.swapTempIntoPhotoDir(context)
-        return "items=${manifest.size}, downloaded=$downloaded, swapped=$copied"
+        return "items=${manifest.size}, downloaded=${downloaded.get()}, reused=${reused.get()}, swapped=$copied"
     }
 
     private fun fetchManifest(): List<RemotePhoto> {

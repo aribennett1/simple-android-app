@@ -29,7 +29,6 @@ class SlideshowActivity : Activity() {
     private val topBarHandler = Handler(Looper.getMainLooper())
     private lateinit var image: ImageView
     private lateinit var emptyText: TextView
-    private lateinit var controls: LinearLayout
     private lateinit var topBar: LinearLayout
     private lateinit var countText: TextView
     private var photos: List<File> = emptyList()
@@ -55,13 +54,14 @@ class SlideshowActivity : Activity() {
             gravity = android.view.Gravity.CENTER
             setBackgroundColor(Color.BLACK)
         }
-        controls = LinearLayout(this).apply {
+        topBar = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
             gravity = android.view.Gravity.CENTER_VERTICAL
             setPadding(dp(10), dp(6), dp(10), dp(6))
             setBackgroundColor(0x99000000.toInt())
+            visibility = View.GONE
         }
-        controls.addView(Button(this).apply {
+        topBar.addView(Button(this).apply {
             text = "SYNC"
             textSize = 12f
             setOnClickListener {
@@ -73,14 +73,7 @@ class SlideshowActivity : Activity() {
             textSize = 13f
             setPadding(dp(10), 0, 0, 0)
         }
-        controls.addView(countText, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
-        topBar = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            gravity = android.view.Gravity.CENTER_VERTICAL or android.view.Gravity.RIGHT
-            setPadding(dp(10), dp(8), dp(10), dp(8))
-            setBackgroundColor(0x99000000.toInt())
-            visibility = View.GONE
-        }
+        topBar.addView(countText, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
         topBar.addView(Button(this).apply {
             text = "⚙"
             textSize = 22f
@@ -96,20 +89,11 @@ class SlideshowActivity : Activity() {
                 FrameLayout.LayoutParams.WRAP_CONTENT,
                 android.view.Gravity.TOP
             ))
-            addView(controls, FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                android.view.Gravity.BOTTOM or android.view.Gravity.START
-            ).apply {
-                leftMargin = dp(12)
-                bottomMargin = dp(12)
-            })
         })
         current = this
         Log.i(TAG, "Slideshow started")
         PhotoSyncScheduler.start(this)
         rescan()
-        showControlsTemporarily()
     }
 
     override fun onResume() {
@@ -127,7 +111,6 @@ class SlideshowActivity : Activity() {
     override fun onUserInteraction() {
         super.onUserInteraction()
         enterImmersive()
-        showControlsTemporarily()
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -146,7 +129,6 @@ class SlideshowActivity : Activity() {
 
     override fun onPause() {
         handler.removeCallbacksAndMessages(null)
-        controlsHandler.removeCallbacksAndMessages(null)
         topBarHandler.removeCallbacksAndMessages(null)
         if (current === this) current = null
         super.onPause()
@@ -290,7 +272,7 @@ class SlideshowActivity : Activity() {
 
     private fun updateSyncProgress(done: Int, total: Int) {
         countText.text = "Sync: $done / $total"
-        showControlsTemporarily()
+        showTopBarTemporarily()
     }
 
     private fun openSettings() {
@@ -299,14 +281,6 @@ class SlideshowActivity : Activity() {
         }.onFailure {
             Log.w(TAG, "Could not open settings", it)
         }
-    }
-
-    private fun showControlsTemporarily() {
-        controls.visibility = View.VISIBLE
-        controlsHandler.removeCallbacksAndMessages(null)
-        controlsHandler.postDelayed({
-            controls.visibility = View.GONE
-        }, 3_000L)
     }
 
     private fun showTopBarTemporarily() {
