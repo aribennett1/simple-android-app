@@ -19,7 +19,7 @@ object PhotoStore {
         val files = photoDir(context).listFiles()?.filter { file ->
             file.isFile && file.length() > 0 && isImageName(file.name)
         }.orEmpty()
-        return files.shuffled()
+        return files.sortedBy { it.name }
     }
 
     fun photoCount(context: Context): Int = photos(context).size

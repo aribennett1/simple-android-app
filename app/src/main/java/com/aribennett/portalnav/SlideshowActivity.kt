@@ -141,14 +141,12 @@ class SlideshowActivity : Activity() {
 
     fun rescan() {
         val previousPhotoName = currentPhotoName
-        photos = PhotoStore.photos(this)
-        index = previousPhotoName
-            ?.let { name -> photos.indexOfFirst { it.name == name } }
-            ?.takeIf { it >= 0 }
-            ?: 0
+        reshufflePhotos(avoidFirstPhotoName = previousPhotoName)
         Log.i(TAG, "Slideshow cache count: ${photos.size}")
         updateCount()
-        showCurrent()
+        if (previousPhotoName == null || photos.none { it.name == previousPhotoName }) {
+            showCurrent()
+        }
     }
 
     private fun showCurrent() {
@@ -160,9 +158,13 @@ class SlideshowActivity : Activity() {
         emptyText.visibility = View.GONE
         var attempts = 0
         while (attempts < photos.size) {
-            val file = photos[index % photos.size]
+            if (index >= photos.size) {
+                reshufflePhotos(avoidFirstPhotoName = currentPhotoName)
+                if (photos.isEmpty()) return
+            }
+            val file = photos[index]
             val bitmap = decodeOrientedBitmap(file)
-            index = (index + 1) % photos.size
+            index += 1
             if (bitmap != null) {
                 currentPhotoName = file.name
                 image.setImageBitmap(bitmap)
@@ -173,6 +175,22 @@ class SlideshowActivity : Activity() {
         }
         image.setImageDrawable(null)
         emptyText.visibility = View.VISIBLE
+    }
+
+    private fun reshufflePhotos(avoidFirstPhotoName: String? = currentPhotoName) {
+        photos = PhotoStore.photos(this).shuffled().avoidFirstRepeat(avoidFirstPhotoName)
+        index = 0
+    }
+
+    private fun List<File>.avoidFirstRepeat(photoName: String?): List<File> {
+        if (photoName == null || size <= 1 || firstOrNull()?.name != photoName) return this
+        val swapIndex = indexOfFirst { it.name != photoName }
+        if (swapIndex <= 0) return this
+        return toMutableList().also { deck ->
+            val first = deck[0]
+            deck[0] = deck[swapIndex]
+            deck[swapIndex] = first
+        }
     }
 
     private fun decodeOrientedBitmap(file: File): Bitmap? {
